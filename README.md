@@ -175,4 +175,12 @@ There is no Screen Board Support package for ARM QEMU.
 
 ---
 
+## Reference links:
+
+https://www.qnx.com/developers/docs/8.0/com.qnx.doc.ide.userguide/topic/creating_qnx_vm.html
+https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qdd/topic/getting_started.html
+https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qdd/topic/getting_started_qemu.html
+
+
 *Thank you*
+---
