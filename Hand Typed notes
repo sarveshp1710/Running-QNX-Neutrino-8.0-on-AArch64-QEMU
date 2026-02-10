@@ -1,0 +1,22 @@
+This my Initial Hand-Typed Solution Notes for this errors :
+
+The Procedure to emulate an Aarch64le (little-endian) Target QNX RTOS using QEMU :
+
+    -> Download Software Centre from QNX website
+    -> Install SDP 8.0 And Momentics IDE from the Software Centre
+    -> In Linux (Ubuntu), you can download the QEMU using `sudo apt install qemu-system` or
+       `sudo apt install qemu-system-aarch64`
+    -> Install QNX-QEMU dependency using 'sudo apt install bison flex libepoxy-dev meson ninja-build pkg-config python3-full python3-pip sphinx
+    sudo apt install libcairo2-dev libgif-dev libglib2.0-dev libjpeg8-dev libpango1.0-dev libpixman-1-dev libsdl2-dev libvirglrenderer-dev' which is at "https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qdd/topic/getting_started_qemu.html"
+    -> Now let's install the necessary image for QNX RTOS in QEMU, install 'com.qnx.qnx800.quickstart.qemu' as in the docs "https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qdd/topic/getting_started.html"
+    -> Now you will see a new directory named 'images/' in ~/qnx800/image, in that you will see a .sh file 'unpack_qemu_image.sh', run it.
+    -> you can now run x86_64 QNX RTOS by just commanding 'mkqnximage --run' on ~/qnx800/qemu/qemu directory(ls, you will see local/ and output/) (Don't forget to 'source ~/qnx800/qnxsdp-env.sh' in qnx800 directory)
+    -> But our aim is to emulate Aarch64le Target
+    -> You will face 'output/build/ifs.build:23 Host file 'startup-qemu-virt' not available' error if you try 'mkqnximage --type=qemu --arch=aarch64le'
+    -> So download com.qnx.qnx800.target.qemuvirt and com.qnx.qnx800.target.driver.virtio.devb from QNX Software Centre to solve this error
+    -> now you will get an error 'Unable to start "uname" (2) slog2_api: cannot connect to slogger2 server...errno=No such file or directory .... slm: unexpected 'SLM:command' at line 148 Unable to access "/dev/ser1" (2)'
+    -> SLM starts too early on ARM QEMU and races slogger2, causing boot failure.
+    -> We can solve this by editing the file ~/qnx800/images/qemu/qemu/local/options and ~/qnx800/images/qemu/qemu/output/options. At line number 87, change OPT_SLM='yes' to OPT_SLM='no'
+    -> Now go to ~/qnx800/images/qemu/qemu/ and do 'mkqnximage --clean --build' and to run 'mkqnximage --run'
+
+    ***Done***
